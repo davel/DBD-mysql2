@@ -151,7 +151,18 @@ assert_lib(
   LIBS => $opt->{libs},
 );
 
-print "Looks good.\n\n";
+if ($opt->{libs} =~ /mariadb/) {
+  print <<"MSG";
+
+The chosen MySQL client library appears to be MariaDB's. Compilation may fail.
+Consider DBD::MariaDB.
+
+
+MSG
+}
+else {
+  print "Looks good.\n\n";
+}
 
 sleep 1;
 
