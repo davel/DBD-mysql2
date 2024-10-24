@@ -15,6 +15,7 @@ use File::Path;
 use File::Copy;
 use File::Basename;
 use File::Spec;
+use version 0.77;
 require DBI::DBD;
 
 my $TESTDB = "test";
@@ -314,6 +315,7 @@ if (eval $ExtUtils::MakeMaker::VERSION >= 5.43) {
                             'Data::Dumper' => 0,
                             'Devel::CheckLib' => '1.09',
                             'ExtUtils::MakeMaker' => 0,
+                            'version' => '0.77',
     },
   );
 }
@@ -447,7 +449,7 @@ sub Configure {
                 }
 
                 if ($param eq 'version') {
-                  if ($str !~ /^[89]\./) {
+                  if (version->parse($str) < version->parse("8.0.0")) {
                     die "DBD::mysql requires MySQL 8.x or newer for building. Version reported by $command: $str";
                   }
                 }
